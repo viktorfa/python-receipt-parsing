@@ -4,7 +4,7 @@ import json
 from receipt_scanning.Receipt import Receipt, ReceiptLine
 from receipt_scanning import lib
 
-with open('./receipt_scanning/tests/data/receipt_keiser.json') as keiser_json_file:
+with open('./data/receipts/receipt_keiser.json') as keiser_json_file:
   keiser_json_object = json.load(keiser_json_file)
 
 class Test_Receipt(unittest.TestCase):
