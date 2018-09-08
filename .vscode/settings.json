@@ -4,11 +4,16 @@
   "python.unitTest.unittestArgs": [
     "-v",
     "-s",
-    "./receipt_scanning/tests",
+    ".",
     "-p",
     "test_*.py"
   ],
   "python.unitTest.pyTestEnabled": false,
   "python.unitTest.nosetestsEnabled": false,
-  "python.unitTest.unittestEnabled": true
+  "python.unitTest.unittestEnabled": true,
+  "files.exclude": {
+    "**/*.pyc": true,
+    "**/__pycache__": true,
+    "**/.ipynb_checkpoints": true
+  }
 }
