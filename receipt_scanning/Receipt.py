@@ -1,4 +1,4 @@
-from parsing.lib import get_ngrams, find_prices, find_weights, find_unit_prices, is_product
+from parsing.lib import get_ngrams, find_prices, find_weights, find_unit_prices, is_product, find_prices_in_string
 
 class Receipt:
     def __init__(self, overlaps, text_annotations):
@@ -16,27 +16,18 @@ class Receipt:
 class ReceiptLine:
     def __init__(self, token_line):
         self.token_line = token_line
-        self.receipt_ngram = ReceiptNgram(token_line)
+        self.string_line = ''.join(token_line)
         self.prices = []
         self.weights = []
         self.unit_prices = []
-        self.prices.extend(self.receipt_ngram.prices)
-        self.weights.extend(self.receipt_ngram.weights)
-        self.unit_prices.extend(self.receipt_ngram.unit_prices)
+        self.prices = find_prices_in_string(self.string_line)
+        self.weights = find_weights(self.token_line)
+        self.unit_prices = find_unit_prices(self.token_line)
 
         if is_product(self):
-            self.product = ReceiptProduct(' '.join(self.token_line[:-1]), self.prices[-1]['value'])
+            self.product = ReceiptProduct(''.join(self.string_line[:self.prices[-1]['start_pos']]), self.prices[-1]['value'])
         else:
             self.product = None
-
-    
-
-class ReceiptNgram:
-    def __init__(self, ngram):
-        self.ngram = ngram
-        self.prices = find_prices(ngram)
-        self.weights = find_weights(ngram)
-        self.unit_prices = find_unit_prices(ngram)
 
 class ReceiptProduct:
     def __init__(self, name, price, unit_price=None, quantity=None, items_quantity=None):
