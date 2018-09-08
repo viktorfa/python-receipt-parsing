@@ -17,6 +17,15 @@ class Test_Receipt(unittest.TestCase):
     self.assertIsInstance(actual.token_lines, list)
     self.assertGreater(len(actual.token_lines), 0)
 
+  def test_can_get_products(self):
+    receipt = lib.read_receipt_from_google_ocr_json(keiser_json_object)
+    actual = receipt.get_all_products()
+    self.assertIsInstance(actual, list)
+    self.assertGreater(len(actual), 0)
+    print('PRODUCTS')
+    for product in actual:
+      print(product)
+
 
 class TestReceiptLine(unittest.TestCase):
   def test_can_parse_price(self):

@@ -1,6 +1,7 @@
 import unittest
 
-from parsing.lib import get_ngrams, is_price, find_prices, find_weights, find_unit_prices
+from parsing.lib import get_ngrams, is_price, find_prices, find_weights, find_unit_prices, is_product
+from receipt_scanning.Receipt import ReceiptLine
 
 class TestBasic(unittest.TestCase):
   def test_get_ngrams(self):
@@ -35,6 +36,7 @@ class TestBasic(unittest.TestCase):
     expected = [dict(
       value=0.088,
       index=0,
+      unit='kg',
     )]
     actual = find_weights(ngram)
     self.assertListEqual(actual, expected)
@@ -48,3 +50,17 @@ class TestBasic(unittest.TestCase):
     )]
     actual = find_unit_prices(ngram)
     self.assertListEqual(actual, expected)
+
+  def test_is_product_true_postive(self):
+    ngram = ['1', 'Tine', 'melk', 'hel', '1T', '17,90']
+    receipt_line = ReceiptLine(ngram)
+    actual = is_product(receipt_line)
+    self.assertTrue(actual)
+    self.assertTrue(is_product(ReceiptLine(['Lok', '13,00'])))
+
+  def test_is_product_true_negative(self):
+    ngram = ['0,338', 'kg', 'X', '49,90/kg']
+    receipt_line = ReceiptLine(ngram)
+    actual = is_product(receipt_line)
+    self.assertFalse(actual)
+    self.assertFalse(is_product(ReceiptLine(['Org.nr.980', '371', '611', 'MVA'])))

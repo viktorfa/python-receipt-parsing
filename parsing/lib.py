@@ -39,3 +39,9 @@ def is_unit_price(token):
 
 def find_unit_prices(ngram):
   return [dict(value=parse_float(x[:5]), index=i, unit=x[-2:]) for i, x in enumerate(ngram) if is_unit_price(x)]
+
+def is_product(receipt_line):
+  if len(receipt_line.prices) == 0:
+    return False
+  last_price_index = max([x['index'] for x in receipt_line.prices])
+  return last_price_index == len(receipt_line.token_line) - 1
