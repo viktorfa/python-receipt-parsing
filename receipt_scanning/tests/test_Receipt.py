@@ -1,7 +1,7 @@
 import unittest
 import json
 
-from receipt_scanning.Receipt import Receipt
+from receipt_scanning.Receipt import Receipt, ReceiptLine
 from receipt_scanning import lib
 
 with open('./receipt_scanning/tests/data/receipt_keiser.json') as keiser_json_file:
@@ -16,3 +16,19 @@ class Test_Receipt(unittest.TestCase):
     actual = lib.read_receipt_from_google_ocr_json(keiser_json_object)
     self.assertIsInstance(actual.token_lines, list)
     self.assertGreater(len(actual.token_lines), 0)
+
+
+class TestReceiptLine(unittest.TestCase):
+  def test_can_parse_price(self):
+    actual = ReceiptLine(['1', 'Hvitlok', '500g', '12,90'])
+    self.assertEqual(actual.prices[0]['value'], 12.90)
+  
+  def test_can_parse_weight(self):
+    actual = ReceiptLine(['1,008', 'kg', 'X', '12,90/kg'])
+    self.assertEqual(actual.weights[0]['value'], 1.008)
+    self.assertEqual(actual.weights[0]['unit'], 'kg')
+
+  def test_can_parse_unit_price(self):
+    actual = ReceiptLine(['0,338', 'kg', 'X', '49,90/kg'])
+    self.assertEqual(actual.unit_prices[0]['value'], 49.90)
+    self.assertEqual(actual.unit_prices[0]['unit'], 'kg')
