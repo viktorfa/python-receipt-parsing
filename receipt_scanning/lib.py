@@ -40,4 +40,4 @@ def sort_overlap_groups_by_x_axis(overlap_map, text_annotations):
     return [sorted(x, key=partial(overlap_group_sort, text_annotations=text_annotations)) for x in overlap_map]
 
 def overlap_group_sort(i, text_annotations):
-    return text_annotations[i]['boundingPoly']['vertices'][0]['x']
+    return min(text_annotations[i]['boundingPoly']['vertices'][0]['x'], text_annotations[i]['boundingPoly']['vertices'][3]['x'])
