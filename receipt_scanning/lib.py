@@ -3,9 +3,11 @@ from functools import partial
 from operator import itemgetter
 
 from receipt_scanning.Receipt import Receipt
+from receipt_scanning.rotation import straighten_annotations
 
 def read_receipt_from_google_ocr_json(json_dict):
     text_annotations = json_dict['responses'][0]['textAnnotations']
+    straighten_annotations(text_annotations)
     optimal_height_factor, _ = find_optimal_height_factor(text_annotations)
     overlap_map = get_overlap_map(text_annotations, optimal_height_factor / 10)
     distinct_overlaps = get_distinct_lists(overlap_map)
