@@ -1,25 +1,35 @@
 import json
 from functools import partial
-from operator import itemgetter
 
 from receipt_scanning.Receipt import Receipt
 from receipt_scanning.rotation import straighten_annotations
 
 def read_receipt_from_google_ocr_json(json_dict):
-    text_annotations = json_dict['responses'][0]['textAnnotations']
+    print('READING RECEIPT!!!')
+    text_annotations = json_dict['textAnnotations']
     straighten_annotations(text_annotations)
     optimal_height_factor, _ = find_optimal_height_factor(text_annotations)
     overlap_map = get_overlap_map(text_annotations, optimal_height_factor / 10)
     distinct_overlaps = get_distinct_lists(overlap_map)
     sorted_distinct_overlaps = sort_overlap_groups_by_x_axis(distinct_overlaps, text_annotations)
-    return Receipt(sorted_distinct_overlaps, text_annotations)
+    sorted_distinct_lines = get_sorted_lines_by_y_axis(sorted_distinct_overlaps, text_annotations)
+    return Receipt(sorted_distinct_lines, text_annotations)
 
 def find_optimal_height_factor(annotations):
     height_factors = range(1, 17, 2)
     results = []
+    
     for hf in height_factors:
-        results.append((hf, len(get_distinct_lists(get_overlap_map(annotations, hf / 10))))) 
-    return min(results, key=itemgetter(1))
+        results.append((hf, len(get_distinct_lists(get_overlap_map(annotations, hf / 10)))))
+        if len(results) > 1 and results[-1][1] == results[-2][1]:
+            print(results)
+            return results[-1]
+        elif len(results) > 1 and results[-1][1] > results[-2][1]:
+            print(results)
+            return results[-2]
+    print('Could not find optimal height factor')
+    print(results)
+    return results[-1]
     
 def get_overlap_map(annotations, height_factor=.6):
     result = [[] for _ in annotations]
@@ -65,6 +75,9 @@ def get_distinct_lists(list_of_lists):
 
 def sort_overlap_groups_by_x_axis(overlap_map, text_annotations):
     return [sorted(x, key=partial(overlap_group_sort, text_annotations=text_annotations)) for x in overlap_map]
+
+def get_sorted_lines_by_y_axis(overlaps, annotations):
+    return sorted(overlaps, key=lambda x: get_y_center(annotations[x[0]]['boundingPoly']))
 
 def overlap_group_sort(i, text_annotations):
     return min(text_annotations[i]['boundingPoly']['vertices'][0]['x'], text_annotations[i]['boundingPoly']['vertices'][3]['x'])
