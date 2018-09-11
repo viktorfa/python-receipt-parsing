@@ -1,7 +1,7 @@
 import json
 
 from receipt_scanning.lib import read_receipt_from_google_ocr_json
-from gcloud.ocr import get_ocr_response_from_url, get_ocr_response_from_image_file, get_ocr_response_from_base64_image_string
+from gcloud.ocr import get_ocr_response_from_url, get_ocr_response_from_image_file, store_and_get_ocr_response_from_base64_image_string
 
 
 def get_error_response(status_code=500, status_text='Internal server error', message=None):
@@ -60,7 +60,7 @@ def handle_post(event, context):
 
     try:
         receipt = read_receipt_from_google_ocr_json(
-            get_ocr_response_from_base64_image_string(body))
+            store_and_get_ocr_response_from_base64_image_string(body))
         return {
             "statusCode": 200,
             "body": json.dumps([vars(x) for x in receipt.get_all_products()])

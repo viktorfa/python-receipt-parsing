@@ -116,4 +116,5 @@ custom:
     - ipykernel
     - jupyter-client
     - jupyter-core
+    - pkg-resources
     fileName: ../requirements.txt

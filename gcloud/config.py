@@ -1,0 +1,1 @@
+BUCKET_NAME = 'vfa-receipt-scanning_receipt-images'
