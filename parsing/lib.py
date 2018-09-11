@@ -1,6 +1,6 @@
 import re
 
-price_pattern = r'\d+,\d{2}'
+price_pattern = r'\d+[,\.]\d{2}'
 weight_pattern = r'\d+,\d{3}'
 unit_price_pattern = r'\d+,\d{2}/kg'
 product_text_pattern = r'[A-Za-z]+'
