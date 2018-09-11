@@ -111,3 +111,10 @@ dmypy.json
 
 # Project output
 output
+
+# Secret
+.credentials
+
+# Serverless
+.serverless
+node_modules/
