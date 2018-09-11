@@ -1,0 +1,11 @@
+The project went steadily forward when I figured out how to use the Gcloud Vision API, and could work locally in Python.
+Of course some problems appeared as I wanted to deploy the code on AWS Lambda. Thanks to Serverless, it's possible to quite
+easily deploy the entire Python project with all its dependencies. 
+How to upload images is a quite big design decision, as I need to configure storage, credentials, etc. 
+I went with either providing an image URL in a request parameter or POST a base64 encoded image. The image should be stored
+in a Gcloud Storage bucket, as it communicates easily with Google Vision and other Google services. However, Google Functions
+does not support Python yet, so I have to use AWS Lambda, which is an amazing service, but can be a bit of a hassle.
+The reason I base64 encode images is that that's the only way I figured was how to upload an image to AWS Lambda. 
+
+I'm not sure how to handle credentials/JWT tokens/API limits yet. AWS Lambda has some functionality for that, so maybe it
+makes sense to make use of that. 
