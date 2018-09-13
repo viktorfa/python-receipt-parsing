@@ -34,7 +34,10 @@ def handle_get(event, context):
             get_ocr_response_from_url(event['queryStringParameters']['image_url']))
         response = {
             "statusCode": 200,
-            "body": json.dumps([vars(x) for x in receipt.get_all_products()])
+            "body": json.dumps([vars(x) for x in receipt.get_all_products()]),
+            "headers": {
+                'Access-Control-Allow-Origin': '*',
+            }
         }
     except KeyError as e:
         return {
@@ -63,7 +66,10 @@ def handle_post(event, context):
             store_and_get_ocr_response_from_base64_image_string(body))
         return {
             "statusCode": 200,
-            "body": json.dumps([vars(x) for x in receipt.get_all_products()])
+            "body": json.dumps([vars(x) for x in receipt.get_all_products()]),
+            "headers": {
+                'Access-Control-Allow-Origin': '*',
+            }
         }
     except Exception as e:
         return get_error_response(500, 'Internal server error', str(e))

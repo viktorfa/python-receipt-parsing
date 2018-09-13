@@ -20,6 +20,8 @@ service: serverless-receipt-scanning # NOTE: update this with your service name
 provider:
   name: aws
   runtime: python3.6
+  memorySize: 1024
+  timeout: 12
 
 # you can overwrite defaults here
 stage: dev
@@ -48,18 +50,24 @@ region: eu-central-1
 # you can add packaging information here
 package:
   include:
-    - ../receipt_scanning/**
-    - ../parsing/**
-    - ../gcloud/**
-    - ../.credentials/**
+    - receipt_scanning/**
+    - parsing/**
+    - gcloud/**
+    - .credentials/**
   exclude:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: serverless.handler.hello
     events:
-      - http: GET hello
-      - http: POST image_upload
+      - http: 
+          path: hello
+          method: get 
+          cors: true
+      - http:
+          path: image_upload
+          method: post
+          cors: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
@@ -91,8 +99,8 @@ functions:
 #          trigger: PreSignUp
 
 #    Define function environment variables here
-#    environment:
-#      variable2: value2
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: ../.credentials/gcloud-credentials.json
 
 # you can add CloudFormation resource templates here
 #resources:
@@ -117,4 +125,4 @@ custom:
     - jupyter-client
     - jupyter-core
     - pkg-resources
-    fileName: ../requirements.txt
+    fileName: requirements.txt
