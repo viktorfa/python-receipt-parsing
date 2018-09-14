@@ -1,0 +1,17 @@
+Grand view of the receipt API
+
+An image or image URL is provided as input, except for handling the size and perhaps validating the image, there's no big difference; and the Google Vision API and Lambda request size limits pretty much take care of much of the heavy lifting. We assume the image is stored in Google Cloud Storage in both cases, too. The most important part when designing our system is what happens after we get the OCR response from Google Vision.
+
+Currently, it is going through a kind of pipeline where some data is manipulated or extracted for each step. The steps are: 1) rotation, 2a) identifying which blocks of characters constitute lines in the receipt, 2b) sort the lines according to how they are on the receipt, 3) parsing the actual lines to extract relevant information such as which lines are products and what is their price. Step 1 is about preprocessing the "image", so that it is in a format the e next step can work with. Step 2 is about identifying regions of the image, so that the raw text found by Google Vision makes semantic sense in our particular application. Step 3 is about extracting information from the semi-structured lines in the receipt. The output of this step is structured data that can be stored in a SQL database or something similar; and also the response in our "receipt scanning as-a-service" API. 
+
+Although the final, structured receipt is the output we actually can work with and care most about, it might be a good idea to store some of the intermittent steps in a database, so that parts of the pipeline can be recalculated without having to send the image to Google Vision every time when the individual steps improve. Potential outputs to be stored are:
+- The response from Google Vision +
+- The rotated response -
+- The identified lines +
+- The parsed lines -
+
+The most computationally heavy step is actually identifying the lines, as there is an O(|text_blocks|^2) step involved (find_optimal_height_factor). Getting the response from Google Vision cost actual money and a RPC obviously takes some time. Just rotating and parsing lines does not take much time in the current design, so there's not much sense to storing that. 
+
+The step involving most tinkering and probably the hardest step is actually extracting information, the parsing step, because the data from different receipts can be quite heterogenous, and there are endless small tricks that can make it slightly better or more optimized. With a lot of data, it might make sense to involve machine learning in this step. 
+
+The order of the lines is especially important in some cases, as the actual amount of the product bought may precede or succeed the line with the actual price in it. 
