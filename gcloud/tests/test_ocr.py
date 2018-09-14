@@ -1,8 +1,11 @@
 import unittest
+from unittest.mock import patch
 
-from gcloud.ocr import store_and_get_ocr_response_from_base64_image_string
+from gcloud.ocr import get_vision_client
 
 class TestOcr(unittest.TestCase):
-  def test_basic_test(self):
-    base64string = 'cnVtcGEgdGlsIGthYXJl'
-    actual = store_and_get_ocr_response_from_base64_image_string(base64string)
+  @patch('google.cloud.vision.ImageAnnotatorClient')
+  def test_basic(self, mock_vision_client):
+    actual = get_vision_client()
+    self.assertIsNotNone(actual)
+    self.assertTrue(mock_vision_client.called_once)
