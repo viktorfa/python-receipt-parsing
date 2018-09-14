@@ -2,7 +2,7 @@ import unittest
 
 from recread.parsing.lib import get_ngrams, is_price, find_prices, find_weights, find_unit_prices,\
                         is_product, find_prices_in_string, is_line_price
-from recread.receipt_scanning.Receipt import ReceiptLine
+from recread.receipts.Receipt import ReceiptLine
 
 class TestBasic(unittest.TestCase):
   def test_get_ngrams(self):

@@ -1,8 +1,8 @@
 import json
 from functools import partial
 
-from recread.receipt_scanning.Receipt import Receipt
-from recread.receipt_scanning.rotation import straighten_annotations
+from recread.receipts.Receipt import Receipt
+from recread.receipts.rotation import straighten_annotations
 
 def read_receipt_from_google_ocr_json(json_dict):
     print('READING RECEIPT!!!')
