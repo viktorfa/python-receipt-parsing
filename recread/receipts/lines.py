@@ -1,19 +1,8 @@
-import json
 from functools import partial
 
-from recread.receipts.Receipt import Receipt
-from recread.receipts.rotation import straighten_annotations
+from recread.util import get_distinct_lists
+from recread.receipts.util import get_y_height, get_y_center
 
-def read_receipt_from_google_ocr_json(json_dict):
-    print('READING RECEIPT!!!')
-    text_annotations = json_dict['textAnnotations']
-    straighten_annotations(text_annotations)
-    optimal_height_factor, _ = find_optimal_height_factor(text_annotations)
-    overlap_map = get_overlap_map(text_annotations, optimal_height_factor / 10)
-    distinct_overlaps = get_distinct_lists(overlap_map)
-    sorted_distinct_overlaps = sort_overlap_groups_by_x_axis(distinct_overlaps, text_annotations)
-    sorted_distinct_lines = get_sorted_lines_by_y_axis(sorted_distinct_overlaps, text_annotations)
-    return Receipt(sorted_distinct_lines, text_annotations)
 
 def find_optimal_height_factor(annotations):
     height_factors = range(1, 17, 2)
@@ -50,30 +39,8 @@ def get_overlap_map(annotations, height_factor=.6):
                 result[i].append(j)
     return result
 
-def get_y_height(ocr_poly):
-    return abs(ocr_poly['vertices'][0]['y'] - ocr_poly['vertices'][3]['y'])
 
-def get_y_center(ocr_poly):
-    return sum([p[1] for p in get_poly_from_ocr_poly(ocr_poly)]) / 4
-
-def get_poly_from_ocr_poly(ocr_poly):
-    return ((p['x'], p['y']) for p in ocr_poly['vertices'])
-
-def get_height(a):
-    return a[1] - a[0]
-
-def get_overlap_size(a, b):
-    return min(a[1] - b[0], b[1] - a[0], get_height(a), get_height(b))
-
-def get_distinct_lists(list_of_lists):
-    hashable_lists = []
-    for l in list_of_lists:
-        json_list = json.dumps(l)
-        if json_list not in hashable_lists:
-            hashable_lists.append(json_list)
-    return [json.loads(x) for x in hashable_lists]
-
-def sort_overlap_groups_by_x_axis(overlap_map, text_annotations):
+def get_sorted_lines_by_x_axis(overlap_map, text_annotations):
     return [sorted(x, key=partial(overlap_group_sort, text_annotations=text_annotations)) for x in overlap_map]
 
 def get_sorted_lines_by_y_axis(overlaps, annotations):

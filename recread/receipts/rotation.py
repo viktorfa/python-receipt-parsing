@@ -1,18 +1,8 @@
 import math
 
-def get_x_length(ocr_poly):
-    return abs(ocr_poly['vertices'][0]['x'] - ocr_poly['vertices'][1]['x'])
-
-def get_y_length(ocr_poly):
-    return abs(ocr_poly['vertices'][0]['y'] - ocr_poly['vertices'][2]['y'])
-
-def get_y_top_diff(ocr_poly):
-    return ocr_poly['vertices'][0]['y'] - ocr_poly['vertices'][1]['y']
+from recread.receipts.util import get_x_length, get_y_length, get_poly_center, get_y_top_diff
 
 def tilt_poly_straight(ocr_poly):
-    y_length = get_y_length(ocr_poly)
-    x_length = get_x_length(ocr_poly)
-    
     top_y_diff = get_y_top_diff(ocr_poly)
     
     ocr_poly['vertices'][0]['y'] -= top_y_diff / 2
@@ -22,9 +12,7 @@ def tilt_poly_straight(ocr_poly):
 
 def find_skew_angle(ocr_poly):
     left_bottom = ocr_poly['vertices'][3]
-    lb = (left_bottom['x'], left_bottom['y'])
     right_bottom = ocr_poly['vertices'][2]
-    rb = (right_bottom['x'], left_bottom['y'])
     
     # Do cosine trigonometry
     b = right_bottom['x'] - left_bottom['x']
@@ -50,15 +38,11 @@ def straighten_annotations(annotations):
 def get_estimated_skew_angle(polys, n=10):
     n_longest = sorted(polys, key=get_x_length, reverse=True)[:min(n, len(polys))]
     return sum([find_skew_angle(p) for p in n_longest]) / len(n_longest)
-    
-
-def get_poly_center(ocr_poly):
-    return (sum([p['x'] for p in ocr_poly['vertices']]) / 4, sum([p['y'] for p in ocr_poly['vertices']]) / 4)
 
 def rotate_poly(ocr_poly, angle, center=(0, 0)):
     sin = math.sin(angle)
     cos = math.cos(angle)
-    for i, p in enumerate(ocr_poly['vertices']):
+    for p in ocr_poly['vertices']:
         x = p['x']
         y = p['y']
         centered_x = x - center[0]

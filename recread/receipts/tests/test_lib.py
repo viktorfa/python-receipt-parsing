@@ -1,11 +1,9 @@
 import unittest
-import json
 
-from recread.receipts.Receipt import Receipt, ReceiptLine
-from recread.receipts.lib import sort_overlap_groups_by_x_axis
+from recread.receipts.lines import get_sorted_lines_by_x_axis
 
 
-class TestLib(unittest.TestCase):
+class TestLines(unittest.TestCase):
     def test_sort_by_x_axis(self):
         overlap_map = [
             [0, 1, 2],
@@ -35,6 +33,6 @@ class TestLib(unittest.TestCase):
                 dict(x=21, y=138),
             ])),
         ]
-        actual = sort_overlap_groups_by_x_axis(overlap_map, text_annotations)
+        actual = get_sorted_lines_by_x_axis(overlap_map, text_annotations)
 
         self.assertListEqual(actual, expected)

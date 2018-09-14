@@ -1,6 +1,6 @@
 import json
 
-from recread.receipts.lib import read_receipt_from_google_ocr_json
+from recread.receipts.core import read_receipt_from_google_ocr_json
 from recread.gcloud.ocr import get_ocr_response_from_url, get_ocr_response_from_image_file, store_and_get_ocr_response_from_base64_image_string
 
 
