@@ -3,8 +3,8 @@ import sys
 import os
 import time
 
-from gcloud.ocr import get_ocr_response_from_image_file, get_ocr_response_from_url
-from receipt_scanning.lib import read_receipt_from_google_ocr_json
+from recread.gcloud.ocr import get_ocr_response_from_image_file, get_ocr_response_from_url
+from recread.receipt_scanning.lib import read_receipt_from_google_ocr_json
 
 start_time = time.time()
 

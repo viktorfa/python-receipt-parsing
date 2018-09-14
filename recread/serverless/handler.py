@@ -1,7 +1,7 @@
 import json
 
-from receipt_scanning.lib import read_receipt_from_google_ocr_json
-from gcloud.ocr import get_ocr_response_from_url, get_ocr_response_from_image_file, store_and_get_ocr_response_from_base64_image_string
+from recread.receipt_scanning.lib import read_receipt_from_google_ocr_json
+from recread.gcloud.ocr import get_ocr_response_from_url, get_ocr_response_from_image_file, store_and_get_ocr_response_from_base64_image_string
 
 
 def get_error_response(status_code=500, status_text='Internal server error', message=None):

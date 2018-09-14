@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 
 from google.cloud import storage
 
-from gcloud.storage import store_image_in_gcloud
+from recread.gcloud.storage import store_image_in_gcloud
 
 class TestStorage(unittest.TestCase):
   def setUp(self):

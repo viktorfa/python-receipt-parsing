@@ -1,4 +1,4 @@
-from parsing.lib import get_ngrams, find_prices, find_weights, find_unit_prices, is_product, find_prices_in_string
+from recread.parsing.lib import get_ngrams, find_prices, find_weights, find_unit_prices, is_product, find_prices_in_string
 
 class Receipt:
     def __init__(self, overlaps, text_annotations):

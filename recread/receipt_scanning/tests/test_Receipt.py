@@ -1,8 +1,8 @@
 import unittest
 import json
 
-from receipt_scanning.Receipt import Receipt, ReceiptLine
-from receipt_scanning import lib
+from recread.receipt_scanning.Receipt import Receipt, ReceiptLine
+from recread.receipt_scanning import lib
 
 with open('./data/receipt_responses/kvittering-keiser-2.jpg.json') as keiser_json_file:
   keiser_json_object = json.load(keiser_json_file)

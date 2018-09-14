@@ -1,8 +1,8 @@
 import unittest
 import json
 
-from receipt_scanning.Receipt import Receipt, ReceiptLine
-from receipt_scanning.lib import sort_overlap_groups_by_x_axis
+from recread.receipt_scanning.Receipt import Receipt, ReceiptLine
+from recread.receipt_scanning.lib import sort_overlap_groups_by_x_axis
 
 
 class TestLib(unittest.TestCase):

@@ -1,9 +1,9 @@
 import base64
 
-from gcloud.ocr import get_vision_client, get_ocr_response_from_url
-from gcloud.storage import store_image_in_gcloud
+from recread.gcloud.ocr import get_vision_client, get_ocr_response_from_url
+from recread.gcloud.storage import store_image_in_gcloud
 
-from gcloud import config
+from recread.gcloud import config
 
 def store_and_get_ocr_response_from_base64_image_string(base64string, client=get_vision_client()):
     image_bytes = base64.b64decode(base64string)

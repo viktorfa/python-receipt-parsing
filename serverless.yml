@@ -50,15 +50,13 @@ region: eu-central-1
 # you can add packaging information here
 package:
   include:
-    - receipt_scanning/**
-    - parsing/**
-    - gcloud/**
+    - src/**
     - .credentials/**
   exclude:
 
 functions:
   hello:
-    handler: serverless.handler.hello
+    handler: recread.serverless.handler.hello
     events:
       - http: 
           path: hello

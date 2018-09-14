@@ -1,6 +1,6 @@
 import unittest
 
-from gcloud.util import generate_file_name
+from recread.gcloud.util import generate_file_name
 
 class TestUtil(unittest.TestCase):
   def test_generate_file_name(self):

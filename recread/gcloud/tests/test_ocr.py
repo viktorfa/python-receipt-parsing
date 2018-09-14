@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 
-from gcloud.ocr import get_vision_client
+from recread.gcloud.ocr import get_vision_client
 
 class TestOcr(unittest.TestCase):
   @patch('google.cloud.vision.ImageAnnotatorClient')
