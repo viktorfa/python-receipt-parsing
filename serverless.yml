@@ -44,8 +44,9 @@ region: eu-central-1
 #            - "/*"
 
 # you can define service wide environment variables here
-#  environment:
-#    variable1: value1
+environment:
+  GOOGLE_APPLICATION_CREDENTIALS: ../.credentials/gcloud-credentials.json
+      
 
 # you can add packaging information here
 package:
@@ -97,8 +98,8 @@ functions:
 #          trigger: PreSignUp
 
 #    Define function environment variables here
-    environment:
-      GOOGLE_APPLICATION_CREDENTIALS: ../.credentials/gcloud-credentials.json
+#    environment:
+#      GOOGLE_APPLICATION_CREDENTIALS: ../.credentials/gcloud-credentials.json
 
 # you can add CloudFormation resource templates here
 #resources:
@@ -111,6 +112,21 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+resources:
+  Resources:
+    DynamoDBIamPolicyGcvResponses:
+      Type: AWS::IAM::Policy
+      Properties:
+        PolicyName: lambda-dynamodb
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:*
+              Resource: arn:aws:dynamodb:*:*:*
+        Roles:
+          - Ref: IamRoleLambdaExecution
 
 plugins:
   - serverless-python-requirements
