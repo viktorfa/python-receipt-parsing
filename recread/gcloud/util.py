@@ -1,6 +1,4 @@
-import hashlib
+from recread.util import hash_bytes
 
 def generate_file_name(image_bytes):
-    m = hashlib.blake2s()
-    m.update(image_bytes)
-    return '{}.jpg'.format(m.hexdigest())
+    return f'{hash_bytes(image_bytes)}.jpg'

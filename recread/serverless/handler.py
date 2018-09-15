@@ -1,7 +1,11 @@
 import json
+import base64
+import traceback
 
+from recread.util import hash_bytes
 from recread.receipts.core import read_receipt_from_google_ocr_json
-from recread.gcloud.ocr import get_ocr_response_from_url, get_ocr_response_from_image_file, store_and_get_ocr_response_from_base64_image_string
+from recread.gcloud.ocr import get_ocr_response_from_url, store_and_get_ocr_response_from_image_bytes
+from recread.dynamodb.core import save_gcv_response, save_receipt_lines
 
 
 def get_error_response(status_code=500, status_text='Internal server error', message=None):
@@ -62,8 +66,14 @@ def handle_post(event, context):
         return get_error_response(400, 'Bad request', 'No request body. Should be b64 encoded image.')
 
     try:
-        receipt = read_receipt_from_google_ocr_json(
-            store_and_get_ocr_response_from_base64_image_string(body))
+        image_bytes = base64.b64decode(body)
+        image_hash = hash_bytes(image_bytes)
+        ocr_response = store_and_get_ocr_response_from_image_bytes(image_bytes)
+        save_gcv_response(ocr_response, image_hash)
+
+        receipt = read_receipt_from_google_ocr_json(ocr_response)
+        save_receipt_lines(receipt.overlaps, receipt.token_lines, image_hash)
+
         return {
             "statusCode": 200,
             "body": json.dumps([vars(x) for x in receipt.get_all_products()]),
@@ -72,4 +82,5 @@ def handle_post(event, context):
             }
         }
     except Exception as e:
+        traceback.print_exc()
         return get_error_response(500, 'Internal server error', str(e))

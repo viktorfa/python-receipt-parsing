@@ -45,3 +45,11 @@ def store_and_get_ocr_response_from_base64_image_string(base64string, client=get
         bucket_name=gcloud_config.BUCKET_NAME,
         file_name=image_file_name,
     ))
+
+
+def store_and_get_ocr_response_from_image_bytes(image_bytes, client=get_vision_client()):
+    image_file_name = store_image_in_gcloud(image_bytes)
+    return get_ocr_response_from_url('gs://{bucket_name}/{file_name}'.format(
+        bucket_name=gcloud_config.BUCKET_NAME,
+        file_name=image_file_name,
+    ))
