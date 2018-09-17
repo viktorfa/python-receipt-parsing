@@ -6,13 +6,13 @@ from pynamodb.models import Model
 from pynamodb.attributes import UnicodeAttribute, MapAttribute, ListAttribute
 
 from recread import config
-from recread.serverless.common import is_in_aws_lambda
+from recread.serverless.common import is_in_aws_lambda, is_lambda_local
 
 
 class GcvResponseModel(Model):
     class Meta:
         table_name = 'gcv_responses'
-        region = config.AWS_REGION_DEFAULT
+        host = config.DYNAMODB_LOCAL_URL if is_lambda_local() else None
 
     image_hash = UnicodeAttribute(hash_key=True)
     gcv_response = MapAttribute(default=None)
@@ -21,7 +21,7 @@ class GcvResponseModel(Model):
 class ReceiptLinesModel(Model):
     class Meta:
         table_name = 'receipt_lines'
-        region = config.AWS_REGION_DEFAULT
+        host = config.DYNAMODB_LOCAL_URL if is_lambda_local() else None
 
     image_hash = UnicodeAttribute(hash_key=True)
     receipt_lines = ListAttribute(default=None)
@@ -38,6 +38,5 @@ def monkeypatch_connection(profile=config.AWS_PROFILE_DEFAULT):
     Connection.session = session
 
 
-
 if not is_in_aws_lambda():
-  monkeypatch_connection()
+    monkeypatch_connection()
