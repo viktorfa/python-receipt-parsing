@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  DynamoDbTableOcrResponse:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: gcv_responses
+      AttributeDefinitions:
+        - AttributeName: image_hash
+          AttributeType: S
+      KeySchema:
+        - AttributeName: image_hash
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+  DynamoDbTableReceiptLines:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: receipt_lines
+      AttributeDefinitions:
+        - AttributeName: image_hash
+          AttributeType: S
+      KeySchema:
+        - AttributeName: image_hash
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
