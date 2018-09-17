@@ -114,7 +114,7 @@ functions:
 #       Value: "Some output value"
 resources:
   Resources:
-    DynamoDBIamPolicyGcvResponses:
+    DynamoDBIamPolicy:
       Type: AWS::IAM::Policy
       Properties:
         PolicyName: lambda-dynamodb
