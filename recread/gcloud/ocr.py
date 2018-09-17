@@ -7,12 +7,17 @@ import base64
 from google.cloud import vision
 from google.cloud.vision import types
 from google.protobuf.json_format import MessageToJson, MessageToDict
+from google.protobuf.message import Message
 
 from recread import config
 from recread.gcloud import config as gcloud_config
 from recread.gcloud.storage import generate_file_name, store_image_in_gcloud
+from recread.serverless.common import is_lambda_local
+from recread.gcloud.mocks import get_vision_client_mock
 
 def get_vision_client():
+    if is_lambda_local():
+        return get_vision_client_mock()
     try:
         return vision.ImageAnnotatorClient.from_service_account_json(gcloud_config.CREDENTIALS_FILE_PATH)
     except FileNotFoundError:
@@ -21,21 +26,27 @@ def get_vision_client():
 def get_ocr_response_from_image_file(image_bytes, client=get_vision_client()):
     image = types.Image(content=image_bytes)
     response = client.document_text_detection(image=image)
-    return MessageToDict(response)
+    if type(response) is Message:
+        return MessageToDict(response)
+    return response
 
 
 def get_ocr_response_from_url(url, client=get_vision_client()):
     image = types.Image()
     image.source.image_uri = url
     response = client.document_text_detection(image=image)
-    return MessageToDict(response)
+    if type(response) is Message:
+        return MessageToDict(response)
+    return response
 
 
 def get_ocr_response_from_base64_image_string(base64string, client=get_vision_client()):
     image_bytes = base64.b64decode(base64string)
     image = types.Image(content=image_bytes)
     response = client.document_text_detection(image=image)
-    return MessageToDict(response)
+    if type(response) is Message:
+        return MessageToDict(response)
+    return response
 
 
 def store_and_get_ocr_response_from_base64_image_string(base64string, client=get_vision_client()):

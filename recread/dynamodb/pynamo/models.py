@@ -6,6 +6,7 @@ from pynamodb.models import Model
 from pynamodb.attributes import UnicodeAttribute, MapAttribute, ListAttribute
 
 from recread import config
+from recread.serverless.common import is_in_aws_lambda
 
 
 class GcvResponseModel(Model):
@@ -36,9 +37,7 @@ def monkeypatch_connection(profile=config.AWS_PROFILE_DEFAULT):
 
     Connection.session = session
 
-def is_in_aws_production():
-  print(f'AWS_REGION: {os.getenv("AWS_REGION")}')
-  return not not os.getenv('AWS_REGION')
 
-if not is_in_aws_production():
+
+if not is_in_aws_lambda():
   monkeypatch_connection()

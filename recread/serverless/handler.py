@@ -35,7 +35,9 @@ def hello(event, context):
 def handle_get(event, context):
     try:
         receipt = read_receipt_from_google_ocr_json(
-            get_ocr_response_from_url(event['queryStringParameters']['image_url']))
+            get_ocr_response_from_url(
+                event['queryStringParameters']['image_url'])
+        )
         response = {
             "statusCode": 200,
             "body": json.dumps([vars(x) for x in receipt.get_all_products()]),
@@ -44,6 +46,7 @@ def handle_get(event, context):
             }
         }
     except KeyError as e:
+        traceback.print_exc()
         return {
             "statusCode": 400,
             "statusText": "Bad request",

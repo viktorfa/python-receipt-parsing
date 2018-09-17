@@ -8,8 +8,13 @@ from google.cloud.storage.blob import Blob
 from recread import config
 from recread.gcloud import config as gcloud_config
 from recread.gcloud.util import generate_file_name
+from recread.gcloud.mocks import get_storage_client_mock
+from recread.serverless.common import is_lambda_local
+
 
 def get_storage_client():
+    if is_lambda_local():
+        return get_storage_client_mock()
     try:
         return storage.Client.from_service_account_json(gcloud_config.CREDENTIALS_FILE_PATH)
     except FileNotFoundError:
