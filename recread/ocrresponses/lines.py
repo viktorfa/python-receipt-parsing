@@ -1,7 +1,7 @@
 from functools import partial
 
 from recread.util import get_distinct_lists
-from recread.receipts.util import get_y_height, get_y_center
+from recread.ocrresponses.util import get_y_height, get_y_center
 
 
 def find_optimal_height_factor(annotations):

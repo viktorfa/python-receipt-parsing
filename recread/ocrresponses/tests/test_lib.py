@@ -1,6 +1,6 @@
 import unittest
 
-from recread.receipts.lines import get_sorted_lines_by_x_axis
+from recread.ocrresponses.lines import get_sorted_lines_by_x_axis
 
 
 class TestLines(unittest.TestCase):

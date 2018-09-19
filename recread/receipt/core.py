@@ -1,7 +1,7 @@
 from recread.util import get_distinct_lists
-from recread.receipts.rotation import straighten_annotations
-from recread.receipts.lines import find_optimal_height_factor, get_overlap_map, get_sorted_lines_by_x_axis, get_sorted_lines_by_y_axis
-from recread.receipts.Receipt import Receipt
+from recread.ocrresponses.rotation import straighten_annotations
+from recread.ocrresponses.lines import find_optimal_height_factor, get_overlap_map, get_sorted_lines_by_x_axis, get_sorted_lines_by_y_axis
+from recread.receipt.models import Receipt
 
 
 def read_receipt_from_google_ocr_json(json_dict):

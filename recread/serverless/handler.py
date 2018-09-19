@@ -3,7 +3,7 @@ import base64
 import traceback
 
 from recread.util import hash_bytes
-from recread.receipts.core import read_receipt_from_google_ocr_json
+from recread.receipt.core import read_receipt_from_google_ocr_json
 from recread.gcloud.ocr import get_ocr_response_from_url, store_and_get_ocr_response_from_image_bytes
 from recread.dynamodb.core import save_gcv_response, save_receipt_lines
 

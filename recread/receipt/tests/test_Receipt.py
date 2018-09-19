@@ -1,8 +1,8 @@
 import unittest
 import json
 
-from recread.receipts.Receipt import Receipt, ReceiptLine
-from recread.receipts.core import read_receipt_from_google_ocr_json
+from recread.receipt.models import Receipt, ReceiptLine
+from recread.receipt.core import read_receipt_from_google_ocr_json
 
 with open('./data/receipt_responses/kvittering-keiser-2.jpg.json') as keiser_json_file:
   keiser_json_object = json.load(keiser_json_file)

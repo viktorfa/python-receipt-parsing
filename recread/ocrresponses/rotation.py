@@ -1,6 +1,6 @@
 import math
 
-from recread.receipts.util import get_x_length, get_y_length, get_poly_center, get_y_top_diff
+from recread.ocrresponses.util import get_x_length, get_y_length, get_poly_center, get_y_top_diff
 
 def tilt_poly_straight(ocr_poly):
     top_y_diff = get_y_top_diff(ocr_poly)
