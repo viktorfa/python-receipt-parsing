@@ -11,6 +11,7 @@ from recread.serverless.common import is_in_aws_lambda, is_lambda_local
 
 class GcvResponseModel(Model):
     class Meta:
+        region = config.AWS_REGION_DEFAULT
         table_name = 'gcv_responses'
         host = config.DYNAMODB_LOCAL_URL if is_lambda_local() else None
 
@@ -20,6 +21,7 @@ class GcvResponseModel(Model):
 
 class ReceiptLinesModel(Model):
     class Meta:
+        region = config.AWS_REGION_DEFAULT
         table_name = 'receipt_lines'
         host = config.DYNAMODB_LOCAL_URL if is_lambda_local() else None
 

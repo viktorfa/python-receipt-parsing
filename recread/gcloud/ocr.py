@@ -6,8 +6,7 @@ import base64
 
 from google.cloud import vision
 from google.cloud.vision import types
-from google.protobuf.json_format import MessageToJson, MessageToDict
-from google.protobuf.message import Message
+from google.protobuf.json_format import MessageToDict
 
 from recread import config
 from recread.gcloud import config as gcloud_config
@@ -26,27 +25,30 @@ def get_vision_client():
 def get_ocr_response_from_image_file(image_bytes, client=get_vision_client()):
     image = types.Image(content=image_bytes)
     response = client.document_text_detection(image=image)
-    if type(response) is Message:
+    try:
         return MessageToDict(response)
-    return response
+    except Exception:
+        return response
 
 
 def get_ocr_response_from_url(url, client=get_vision_client()):
     image = types.Image()
     image.source.image_uri = url
     response = client.document_text_detection(image=image)
-    if type(response) is Message:
+    try:
         return MessageToDict(response)
-    return response
+    except Exception:
+        return response
 
 
 def get_ocr_response_from_base64_image_string(base64string, client=get_vision_client()):
     image_bytes = base64.b64decode(base64string)
     image = types.Image(content=image_bytes)
     response = client.document_text_detection(image=image)
-    if type(response) is Message:
+    try:
         return MessageToDict(response)
-    return response
+    except Exception:
+        return response
 
 
 def store_and_get_ocr_response_from_base64_image_string(base64string, client=get_vision_client()):
