@@ -1,4 +1,8 @@
-from recread.parsing.core import parse_line, get_product_name
+from recread.parsing.core import parse_receipt_line
+from recread.parsing.lines import get_price_of_line, get_line_type
+from recread.parsing.tokens import get_product_name
+from recread.parsing.enums import line_types, token_types
+
 
 class Receipt:
     def __init__(self, overlaps, text_annotations):
@@ -6,23 +10,54 @@ class Receipt:
         self.text_annotations = text_annotations
         self.token_lines = []
         for o in overlaps:
-            self.token_lines.append([text_annotations[i]['description'] for i in o if i != 0])
+            self.token_lines.append(
+                [text_annotations[i]['description'] for i in o if i != 0])
         self.receipt_lines = [ReceiptLine(x) for x in self.token_lines]
 
     def get_all_products(self):
-        return [product for product in [ReceiptProduct.from_receipt_line(x) for x in self.receipt_lines] if product]
+        result = []
+        for x in self.receipt_lines:
+            if x.type == line_types.TOTAL_SUM:
+                return result
+            elif x.type == line_types.PRODUCT:
+                result.append(ReceiptProduct(
+                    get_product_name(x.string_line),
+                    x.price['value'],
+                    quantity=x.quantity,
+                ))
+        return result
 
     def get_all_lines(self):
         return self.receipt_lines
+
+    def get_sum(self):
+        for x in self.receipt_lines:
+            if x.type == line_types.TOTAL_SUM:
+                return x.price['value']
+        return None
+
 
 class ReceiptLine:
     def __init__(self, token_line):
         self.token_line = token_line
         self.string_line = ''.join(token_line)
-        self.parsed_line = parse_line(self.string_line)
+        self.parsed_line = parse_receipt_line(self)
+        line_type = get_line_type(self)
+        self.type = line_type['type']
+        if self.type == line_types.PRODUCT:
+            self.price = line_type['price']
+            self.quantity = line_type['quantity']
+        elif self.type == line_types.TOTAL_SUM:
+            self.price = line_type['price']
+        elif self.type == line_types.MEASURE:
+            self.price = line_type['price']
+            self.quantity = line_type['quantity']
+        else:
+            self.price = None
 
     def __str__(self):
         return self.string_line
+
 
 class ReceiptProduct:
     def __init__(self, name, price, unit_price=None, quantity=None, items_quantity=None):
@@ -42,11 +77,8 @@ class ReceiptProduct:
         name = get_product_name(receipt_line.string_line)
         if price:
             return ReceiptProduct(name, price)
-        else: 
+        else:
             return None
-        
-            
 
     def __str__(self):
         return '{0}: {1}'.format(self.name, self.price)
-

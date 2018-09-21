@@ -1,6 +1,6 @@
 import unittest
 
-from recread.parsing.core import get_product_name
+from recread.parsing.tokens import get_product_name
 from recread.receipt.models import ReceiptLine
 
 class TestBasic(unittest.TestCase):
