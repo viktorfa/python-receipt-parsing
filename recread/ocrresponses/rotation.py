@@ -19,7 +19,10 @@ def find_skew_angle(ocr_poly):
     c = left_bottom['y'] - right_bottom['y']
     a = math.sqrt(b**2 + c**2)
     
-    return math.acos((a**2 + b**2 - c**2) / (2 * a * b))
+    if left_bottom['y'] < right_bottom['y']:
+        return math.acos((a**2 + b**2 - c**2) / (2 * a * b))
+    else:
+        return - math.acos((a**2 + b**2 - c**2) / (2 * a * b))
     
     
     
@@ -37,7 +40,8 @@ def straighten_annotations(annotations):
         
 def get_estimated_skew_angle(polys, n=10):
     n_longest = sorted(polys, key=get_x_length, reverse=True)[:min(n, len(polys))]
-    return sum([find_skew_angle(p) for p in n_longest]) / len(n_longest)
+    result = sum([find_skew_angle(p) for p in n_longest]) / len(n_longest)
+    return result
 
 def rotate_poly(ocr_poly, angle, center=(0, 0)):
     sin = math.sin(angle)
@@ -47,8 +51,8 @@ def rotate_poly(ocr_poly, angle, center=(0, 0)):
         y = p['y']
         centered_x = x - center[0]
         centered_y = y - center[1]
-        rotated_x = centered_x * cos - centered_y * sin
-        rotated_y = centered_x * sin + centered_y * cos
+        rotated_x = centered_x * cos + centered_y * sin
+        rotated_y = -centered_x * sin + centered_y * cos
         p['x'] = rotated_x + center[0]
         p['y'] = rotated_y + center[1]
 
