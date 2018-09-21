@@ -1,7 +1,13 @@
+import math
+
 from recread.parsing.core import parse_receipt_line
 from recread.parsing.lines import get_price_of_line, get_line_type
 from recread.parsing.tokens import get_product_name
 from recread.parsing.enums import line_types, token_types
+
+
+def get_value_unit_dict(d):
+    return {key: value for key, value in d.items() if key in ('value', 'unit')} if d else None
 
 
 class Receipt:
@@ -9,23 +15,15 @@ class Receipt:
         self.overlaps = overlaps
         self.text_annotations = text_annotations
         self.token_lines = []
+        self.products = []
         for o in overlaps:
             self.token_lines.append(
                 [text_annotations[i]['description'] for i in o if i != 0])
         self.receipt_lines = [ReceiptLine(x) for x in self.token_lines]
+        self.populate_products()
 
     def get_all_products(self):
-        result = []
-        for x in self.receipt_lines:
-            if x.type == line_types.TOTAL_SUM:
-                return result
-            elif x.type == line_types.PRODUCT:
-                result.append(ReceiptProduct(
-                    get_product_name(x.string_line),
-                    x.price['value'],
-                    quantity=x.quantity,
-                ))
-        return result
+        return self.products
 
     def get_all_lines(self):
         return self.receipt_lines
@@ -35,6 +33,39 @@ class Receipt:
             if x.type == line_types.TOTAL_SUM:
                 return x.price['value']
         return None
+
+    def populate_products(self):
+        measure_candidates = [
+            x for x in self.receipt_lines if x.type == line_types.MEASURE]
+
+        for receipt_line in self.receipt_lines:
+            if receipt_line.type == line_types.TOTAL_SUM:
+                # Assume all products are before the sum
+                break
+            elif receipt_line.type != line_types.PRODUCT:
+                # Skip not product lines
+                continue
+            product = receipt_line
+            product_kwargs = dict(
+                name=get_product_name(product.string_line),
+                price=product.price['value'],
+                quantity=get_value_unit_dict(product.quantity),
+            )
+            for i, measure in enumerate(measure_candidates):
+                if math.isclose(measure.price['value'] * measure.quantity['value'], product.price['value'], abs_tol=.01):
+                    product_kwargs.update(dict(
+                        unit_price=get_value_unit_dict(measure.price),
+                        quantity=get_value_unit_dict(measure.quantity),
+                    ))
+                    measure_candidates.pop(i)
+                    break
+            self.products.append(ReceiptProduct(**product_kwargs))
+
+    def get_json_dict(self):
+        return dict(
+            products=[x.__dict__ for x in self.get_all_products()],
+            sum=self.get_sum(),
+        )
 
 
 class ReceiptLine:

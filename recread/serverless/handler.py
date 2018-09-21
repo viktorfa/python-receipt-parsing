@@ -40,7 +40,7 @@ def handle_get(event, context):
         )
         response = {
             "statusCode": 200,
-            "body": json.dumps([vars(x) for x in receipt.get_all_products()]),
+            "body": json.dumps(receipt.get_json_dict()),
             "headers": {
                 'Access-Control-Allow-Origin': '*',
             }
@@ -79,7 +79,7 @@ def handle_post(event, context):
 
         return {
             "statusCode": 200,
-            "body": json.dumps([vars(x) for x in receipt.get_all_products()]),
+            "body": json.dumps(receipt.get_json_dict()),
             "headers": {
                 'Access-Control-Allow-Origin': '*',
             }
