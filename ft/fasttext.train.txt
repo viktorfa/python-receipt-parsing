@@ -1,0 +1,5 @@
+__label__True 1Gront,stk16,90 
+__label__False 15%Heravmoms16,03 
+__label__True 1Koriander12,90 
+__label__True Lime16,87 
+__label__False Huriye 

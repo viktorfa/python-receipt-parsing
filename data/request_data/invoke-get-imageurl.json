@@ -1,0 +1,4 @@
+{
+  "httpMethod": "GET",
+  "queryStringParameters": {"image_url": "https://example.com/receipt.jpg"}
+}

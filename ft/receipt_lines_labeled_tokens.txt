@@ -1,0 +1,193 @@
+__label__False holdbart . no
+__label__False adr henrik bullsvei ### jessheim
+__label__False tlf : ## ## ## ##
+__label__False org . nr : ### ### ### mva
+__label__False foretaksregisteret
+__label__False kvitt : ###### dato : # / # / #### ## : ##
+__label__False eksp : e . h . h
+__label__True bondens rifla potetchips chili # , ##
+__label__True gouda ### g ## . ##
+__label__True meieriet fyldig gouda ### g ## . ##
+__label__False meieriet fyldig gouda ### g . ##
+__label__True * sirius c &amp; l karamell ###g # , ##
+__label__True * blåmugg burgerost ##g # . ##
+__label__True citronpepper santa maria ##g ## , ##
+__label__True stimorol senses rainforest min # , ##
+__label__True stimorol senses rainforest min # , ##
+__label__True # for kr ## , ## # , ##
+__label__True odense ekte marsipan ### g ## , ##
+__label__True odense ekte marsipan ### g ## , ##
+__label__True bærepose # , ##
+__label__True fun light jungle fruit # , ## ## , ##
+__label__True pant # , ## # , ##
+__label__True fun light jungle fruit # , ## ## , ##
+__label__True pant # , ## # , ##
+__label__True odense nougat ###g # , ##
+__label__True odense nougat ###g # , ##
+__label__True smågodt pr kg ## , ##
+__label__True # , ###kg x kr ## , ##
+__label__True knekkebrød med havre , glutenfr ## , ##
+__label__True knekkebrød med havre , glutenfr ## , ##
+__label__True pant # , ## # , ##
+__label__True fun light peach ## , ##
+__label__True ego oskoreia # , ## # , # % vol ## , ##
+__label__True vill blåbær m / mørk sjokolade # ## , ##
+__label__True synnøve krydder smør hvitløk # , ##
+__label__True synnøve kryddersmør hvitlok # , ##
+__label__True krydder smør paprika # , ##
+__label__True blodpolse ### g # , ##
+__label__True * blåmugg burgerost ##g # , ##
+__label__True knekkebrød med havre , glutenfri ## , ##
+__label__False 
+__label__True freia ## % kokesjokolade ## , ##
+__label__True santa maria fem pepper ### ## , ##
+__label__True knekkebrød med havre , glutenfr ## , ##
+__label__True knekkebrød med havre , glutenfr ## , ##
+__label__True mama beef nudler # . ##
+__label__True mama beef nudler # . ##
+__label__True non stop ### g , freia ## , ##
+__label__True magic facecloth ole brum # , ##
+__label__False - - - - -
+__label__False total : ### , ##
+__label__False grunnlag mva . sats mva kr .
+__label__False ### , ## ## , ## % ## , ##
+__label__False # , ## # %
+__label__False ## , ## ## , ## % # , ##
+__label__False - - - - - -
+__label__False ### , ## sum mva : ## , ##
+__label__False betaling :
+__label__True betalt med kort : ### , ##
+__label__False kundens eksemplar :
+__label__False bax : ###### - ########
+__label__False ## / ## / #### ## : ##
+__label__False bankaxept
+__label__False chip
+__label__False * * * * * * * * * * * * * ##### - #
+__label__False aid : d#############
+__label__False tvr : ##########
+__label__False tsi : ####
+__label__False ref : ### ############
+__label__False resp : ## godkjent
+__label__False pin - kode verifisert
+__label__False nok = ### , ##
+__label__False velkommen tilbake !
+__label__False www . holdbart . no
+__label__False ikea
+__label__False velkommen til ikea family
+__label__False klubben som gir deg mer av ikea
+__label__False registrer deg na på ikea . no / family
+__label__False apent man - fre ## - ## lør # - ##
+__label__False ikea family #######xxxxxxxx####
+__label__False art . nr ######## #####
+__label__True sluka termokanne # , # ### , ## #
+__label__False art . nr ######## #####
+__label__True gokart ### , ###
+__label__False total ### , ##
+__label__False total artikler #
+__label__False bankaxept ### , ## nok
+__label__False 
+__label__False bax : ###### - ########
+__label__False ## / ## / #### ## : ##
+__label__False bankaxept
+__label__False chip
+__label__False * * * * * * * * * * * * * ##### - #
+__label__False aid : ##############
+__label__False tvr : ##########
+__label__False tsi : ####
+__label__False ref : ### ############
+__label__False resp : ## godkjent
+__label__False pin - kode verifisert
+__label__False nok = ### , ##
+__label__False mva kode : mva net moms
+__label__False mva moms
+__label__False kode : mva net moms
+__label__False # ## , # % ### , ## ## , ##
+__label__False medarbeider nr . ## #
+__label__False tid vh ka
+__label__False dato tid ##
+__label__False dato tid vh ka
+__label__False dato ## ## ##
+__label__False ## . ## . ## ## : ## : ## ## ## ##
+__label__False ## . ## . ## ## : ## : ## ## ##
+__label__False glemt noe ? kjøp det pa ikea . no
+__label__False n##########mva foretaksregisteret
+__label__False keyser
+__label__False fruktmarked
+__label__False org . nr . ### ### ### mva
+__label__False huriye
+__label__False # . ### kg x ## , ## / kg
+__label__True ingefær # , ##
+__label__True # tomater kopp ## , ##
+__label__False # , ### kg x ## , ## / kg
+__label__True lime ## , ##
+__label__True # koriander ## , ##
+__label__False # , ### kg x ## , ## / kg
+__label__True lok ## , ##
+__label__True # hvitiok ###g ## , ##
+__label__True # tine melk hel it ## , ##
+__label__False 
+__label__True # agurk ## , ##
+__label__True # gront , stk ## , ##
+__label__False total ### , ##
+__label__True ## % herav moms ## , ##
+__label__True bank ### , ##
+__label__False mandag ## - # - #### ## : ## : ##
+__label__False # #### l####
+__label__False - - - -
+__label__False takk for handelen
+__label__False og velkommen tilbake !
+__label__False følg oss på facebook
+__label__False mandag - fredag kl . # - ##
+__label__False lørdag : kl . # - ##
+__label__False sondag : kl . ## - ##
+__label__False salgskvittering
+__label__False kiwi ### holt vestvollen
+__label__False org . nr . ### ### ### mva
+__label__False foretaksregisteret
+__label__False prost stabels vei #
+__label__False ## . ## . ## ## : ## kasse : ###
+__label__False kvitt : ###### opernr : ###
+__label__False serienr . : #####
+__label__True vann m / kullsyre f . price ## % # , ##
+__label__True + pant # % # , ##
+__label__True vann m / kullsyre lime # , ## % # , ##
+__label__True + pant # % # , ##
+__label__True frydenlund pilsner # , #l ## % ## , ##
+__label__True + pant # % # , ##
+__label__True nypoteter # , #kg gule ga ## % ## , ##
+__label__False sum # varer ## , ##
+__label__False = = = =
+__label__True bank ## , ##
+__label__False mva % grunnlag mva totalt
+__label__False # , ## # , ## # . ## # , ##
+__label__False ## , ## ## , ## # , ## ## , ##
+__label__False ## , ## ## , ## # , ## ## , ##
+__label__False - - - - - - - - - -
+__label__False sum ## , ## # , ## ## , ##
+__label__True trumf - grunnlag denne handel : ## , ##
+__label__False meld deg på kiwi pluss på
+__label__False 
+__label__False kiwi . no
+__label__True din trump - saldo er : ### . ##
+__label__False før denne handelen
+__label__False trumf kundenummer : #########
+__label__False bax : ######## - ######
+__label__False ## / ## / #### ## : ##
+__label__False visa credit
+__label__False * * * * * * * * *
+__label__False >
+__label__False aid : a#############
+__label__False d
+__label__False tvr : ##########
+__label__False tsi : f###
+__label__False sted : #######
+__label__False ref . : ###### ###### ib#
+__label__False resp . : ##
+__label__False overf . : ###
+__label__False kjøp
+__label__False nok ## , ##
+__label__False trumf registrert
+__label__False olutionument de
+__label__False #############
+__label__False velkommen tilbake til
+__label__False en hyggelig handel

@@ -1,0 +1,68 @@
+__label__False org . nr : ### ### ### mva
+__label__False kvitt : ###### dato : # / # / #### ## : ##
+__label__True stimorol senses rainforest min # , ##
+__label__True stimorol senses rainforest min # , ##
+__label__True pant # , ## # , ##
+__label__True fun light jungle fruit # , ## ## , ##
+__label__True odense nougat ###g # , ##
+__label__True odense nougat ###g # , ##
+__label__True knekkebrød med havre , glutenfr ## , ##
+__label__True pant # , ## # , ##
+__label__True vill blåbær m / mørk sjokolade # ## , ##
+__label__True synnøve krydder smør hvitløk # , ##
+__label__True synnøve kryddersmør hvitlok # , ##
+__label__True knekkebrød med havre , glutenfri ## , ##
+__label__False 
+__label__True freia ## % kokesjokolade ## , ##
+__label__True knekkebrød med havre , glutenfr ## , ##
+__label__False ## , ## ## , ## % # , ##
+__label__False ## / ## / #### ## : ##
+__label__False bankaxept
+__label__False chip
+__label__False tsi : ####
+__label__False ref : ### ############
+__label__False resp : ## godkjent
+__label__False www . holdbart . no
+__label__False ikea
+__label__False art . nr ######## #####
+__label__True gokart ### , ###
+__label__False ## / ## / #### ## : ##
+__label__False * * * * * * * * * * * * * ##### - #
+__label__False tvr : ##########
+__label__False nok = ### , ##
+__label__False kode : mva net moms
+__label__False # ## , # % ### , ## ## , ##
+__label__False medarbeider nr . ## #
+__label__False dato ## ## ##
+__label__False ## . ## . ## ## : ## : ## ## ## ##
+__label__False ## . ## . ## ## : ## : ## ## ##
+__label__False glemt noe ? kjøp det pa ikea . no
+__label__False n##########mva foretaksregisteret
+__label__False # , ### kg x ## , ## / kg
+__label__True lok ## , ##
+__label__True # tine melk hel it ## , ##
+__label__True # gront , stk ## , ##
+__label__False bank ### , ##
+__label__False - - - -
+__label__False og velkommen tilbake !
+__label__False følg oss på facebook
+__label__False kiwi ### holt vestvollen
+__label__False ## . ## . ## ## : ## kasse : ###
+__label__True vann m / kullsyre f . price ## % # , ##
+__label__True + pant # % # , ##
+__label__True vann m / kullsyre lime # , ## % # , ##
+__label__True nypoteter # , #kg gule ga ## % ## , ##
+__label__False sum # varer ## , ##
+__label__False trumf - grunnlag denne handel : ## , ##
+__label__False 
+__label__False kiwi . no
+__label__False bax : ######## - ######
+__label__False ## / ## / #### ## : ##
+__label__False * * * * * * * * *
+__label__False tvr : ##########
+__label__False ref . : ###### ###### ib#
+__label__False resp . : ##
+__label__False nok ## , ##
+__label__False trumf registrert
+__label__False olutionument de
+__label__False velkommen tilbake til

@@ -1,0 +1,6 @@
+{
+  "error": {
+    "message": "Invalid GCS path specified: gs://vfa-receipt-scanning_receipt-images",
+    "code": 3
+  }
+}
