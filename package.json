@@ -4,11 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "python -m unittest discover"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "serverless-python-requirements": "^4.2.0"
+    "serverless-python-requirements": "^6.0.0",
+    "serverless-wsgi": "^3.0.2"
+  },
+  "devDependencies": {
+    "serverless": "^3.30.1",
+    "serverless-offline": "^12.0.4"
   }
 }

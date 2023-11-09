@@ -118,3 +118,5 @@ output
 # Serverless
 .serverless
 node_modules/
+
+layers/tools/python/

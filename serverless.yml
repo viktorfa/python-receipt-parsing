@@ -1,117 +1,40 @@
-# Welcome to Serverless!
-#
-# This file is the main config file for your service.
-# It's very minimal at this point and uses default values.
-# You can always add more config options for more control.
-# We've included some commented out config examples here.
-# Just uncomment any of them to get that config option.
-#
-# For full config options, check the docs:
-#    docs.serverless.com
-#
-# Happy Coding!
-
 service: serverless-receipt-scanning # NOTE: update this with your service name
-
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
-# frameworkVersion: "=X.X.X"
+frameworkVersion: "3"
+useDotenv: true
 
 provider:
   name: aws
-  runtime: python3.6
+  runtime: python3.9
   memorySize: 1024
   timeout: 12
+  region: eu-central-1
+  profile: serverless-admin
+  logRetentionInDays: 30
+  versionFunctions: false
 
-# you can overwrite defaults here
-stage: dev
-region: eu-central-1
+  environment:
+    GOOGLE_APPLICATION_CREDENTIALS: ../.credentials/gcloud-credentials.json
+    MONGO_URI: ${env:MONGO_URI}
+    MONGO_DATABASE: ${env:MONGO_DATABASE}
+    GRAPHQL_URL: ${env:GRAPHQL_URL}
+    HASURA_ADMIN_SECRET: ${env:HASURA_ADMIN_SECRET}
+    JWT_SECRET: ${env:JWT_SECRET}
+    JWT_ALG: ${env:JWT_ALG}
 
-# you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:ListBucket"
-#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:PutObject"
-#      Resource:
-#        Fn::Join:
-#          - ""
-#          - - "arn:aws:s3:::"
-#            - "Ref" : "ServerlessDeploymentBucket"
-#            - "/*"
-
-# you can define service wide environment variables here
-environment:
-  GOOGLE_APPLICATION_CREDENTIALS: ../.credentials/gcloud-credentials.json
-      
-
-# you can add packaging information here
 package:
   include:
-    - src/**
+    - recread/**
+    - data/**
     - .credentials/**
   exclude:
+    - ./**
 
 functions:
-  hello:
-    handler: recread.serverless.handler.hello
-    events:
-      - http: 
-          path: hello
-          method: get 
-          cors: true
-      - http:
-          path: image_upload
-          method: post
-          cors: true
+  app-url:
+    handler: wsgi_handler.handler
+    url:
+      cors: false
 
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
-#    events:
-#      - http:
-#          path: users/create
-#          method: get
-#      - s3: ${env:BUCKET}
-#      - schedule: rate(10 minutes)
-#      - sns: greeter-topic
-#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
-#      - alexaSkill: amzn1.ask.skill.xx-xx-xx-xx
-#      - alexaSmartHome: amzn1.ask.skill.xx-xx-xx-xx
-#      - iot:
-#          sql: "SELECT * FROM 'some_topic'"
-#      - cloudwatchEvent:
-#          event:
-#            source:
-#              - "aws.ec2"
-#            detail-type:
-#              - "EC2 Instance State-change Notification"
-#            detail:
-#              state:
-#                - pending
-#      - cloudwatchLog: '/aws/lambda/hello'
-#      - cognitoUserPool:
-#          pool: MyUserPool
-#          trigger: PreSignUp
-
-#    Define function environment variables here
-#    environment:
-#      GOOGLE_APPLICATION_CREDENTIALS: ../.credentials/gcloud-credentials.json
-
-# you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
 resources:
   Resources:
     DynamoDBIamPolicy:
@@ -119,7 +42,7 @@ resources:
       Properties:
         PolicyName: lambda-dynamodb
         PolicyDocument:
-          Version: '2012-10-17'
+          Version: "2012-10-17"
           Statement:
             - Effect: Allow
               Action:
@@ -130,13 +53,32 @@ resources:
 
 plugins:
   - serverless-python-requirements
+  - serverless-offline
+  - serverless-wsgi
 
 custom:
+  wsgi:
+    app: recread.serverless.wsgi.app
+    packRequirements: false
   pythonRequirements:
     dockerizePip: true # Had some problem with C libs in python if using no-linux
+    slim: true # Omits tests, __pycache__, *.pyc etc from dependencies
+    useDownloadCache: true
+    useStaticCache: true
     noDeploy:
-    - ipykernel
-    - jupyter-client
-    - jupyter-core
-    - pkg-resources
+      - ipykernel
+      - jupyter-client
+      - jupyter-core
+      - pkg-resources
+      - black
+      - mypy
+      - boto3
+      - botocore
+      - matplotlib
+      #- scipy.libs
+      #- numpy.libs
+      #- numpy
+      - PIL
+      - Pillow.libs
+      - IPython
     fileName: requirements.txt
